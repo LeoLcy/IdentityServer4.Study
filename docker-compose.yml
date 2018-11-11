@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  identityserver4.study:
+    image: ${DOCKER_REGISTRY}identityserver4study
+    build:
+      context: .
+      dockerfile: IdentityServer4.Study\Dockerfile
+
+  identityserver4.study.server:
+    image: ${DOCKER_REGISTRY}identityserver4studyserver
+    build:
+      context: .
+      dockerfile: IdentityServer4.Study.Server\Dockerfile
+
+
+  identityserver4.study.api:
+    image: ${DOCKER_REGISTRY}identityserver4studyapi
+    build:
+      context: .
+      dockerfile: IdentityServer4.Study.Api\Dockerfile
+
+
+  identityserver4.study.client:
+    image: ${DOCKER_REGISTRY}identityserver4studyclient
+    build:
+      context: .
+      dockerfile: IdentityServer4.Study.Client\Dockerfile
+
