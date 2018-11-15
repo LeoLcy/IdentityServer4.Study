@@ -47,5 +47,43 @@ namespace IdentityServer4.Study.Controllers
             };
             return JsonConvert.SerializeObject(obj);
         }
+
+        public async Task<ActionResult<string>> GetUserPassword()
+        {
+            // 从元数据中发现端口
+            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+
+            if (disco.IsError)
+            {
+                return disco.Error;
+            }
+            // request token
+            var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("bob", "password","api1");
+
+            if (tokenResponse.IsError)
+            {
+                return tokenResponse.Error;
+            }
+
+            Console.WriteLine();
+
+            // call api
+            var client = new HttpClient();
+            client.SetBearerToken(tokenResponse.AccessToken);
+
+            var response = await client.GetAsync("https://localhost:5001/identity");
+            if (!response.IsSuccessStatusCode)
+            {
+                return JsonConvert.SerializeObject(response.StatusCode);
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            var obj = new
+            {
+                tokenJson = tokenResponse.Json,
+                content = content
+            };
+            return JsonConvert.SerializeObject(obj);
+        }
     }
 }

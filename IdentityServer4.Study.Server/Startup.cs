@@ -27,12 +27,14 @@ namespace IdentityServer4.Study.Server
         {
             services.AddIdentityServer()
                .AddDeveloperSigningCredential()
+               .AddInMemoryIdentityResources(Config.GetIdentityResources())
                .AddInMemoryApiResources(Config.GetApiResources())
-               .AddInMemoryClients(Config.GetClients());
+               .AddInMemoryClients(Config.GetClients())
+               .AddTestUsers(Config.GetUsers());
 
 
 
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,8 +53,8 @@ namespace IdentityServer4.Study.Server
             app.UseHttpsRedirection();
 
             app.UseIdentityServer();
-
-            //app.UseMvc();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
