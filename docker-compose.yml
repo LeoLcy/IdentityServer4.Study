@@ -27,3 +27,17 @@ services:
       context: .
       dockerfile: IdentityServer4.Study.Client\Dockerfile
 
+
+  identityserver4.study.server.db:
+    image: ${DOCKER_REGISTRY}identityserver4studyserverdb
+    build:
+      context: .
+      dockerfile: ..\IdentityServer4.Study.Server.DB\Dockerfile
+
+
+  identityserver4.study.serverdb:
+    image: ${DOCKER_REGISTRY}identityserver4studyserverdb
+    build:
+      context: .
+      dockerfile: IdentityServer4.Study.ServerDB\Dockerfile
+

@@ -78,6 +78,24 @@ namespace IdentityServer4.Study.Server
                             "api1"
                         },
                          AllowOfflineAccess = true
+                    },
+                  new Client
+                    {
+                        ClientId = "js",
+                        ClientName = "JavaScript Client",
+                        AllowedGrantTypes = GrantTypes.Implicit,
+                        AllowAccessTokensViaBrowser = true,
+
+                        RedirectUris =           { "http://localhost:5003/account/index" },
+                        PostLogoutRedirectUris = { "http://localhost:5003/Home/index" },
+                        AllowedCorsOrigins =     { "http://localhost:5003" },
+
+                        AllowedScopes =
+                        {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            "api1"
+                        }
                     }
             };
         }

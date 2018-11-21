@@ -41,7 +41,9 @@ namespace IdentityServer4.Study.Client
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

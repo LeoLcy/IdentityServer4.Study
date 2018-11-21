@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    这是account/index
+    <script src="~/js/oidc-client/oidc-client.min.js"></script>
+    <script>
+        new Oidc.UserManager().signinRedirectCallback().then(function () {
+            window.location = "/home/index";
+        }).catch(function (e) {
+            console.error(e);
+        });
+    </script>
+</body>
+</html>
